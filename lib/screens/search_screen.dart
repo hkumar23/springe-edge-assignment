@@ -3,13 +3,24 @@ import 'package:internshala_spring_edge/app_methods.dart';
 import 'package:internshala_spring_edge/widgets/custom_auto_complete_field.dart';
 import 'package:internshala_spring_edge/widgets/custom_checkbox.dart';
 import 'package:internshala_spring_edge/widgets/custom_text_field.dart';
+import 'package:internshala_spring_edge/widgets/cut_off_date_field.dart';
 
 import '../widgets/custom_dropdown.dart';
 import '../widgets/history_button.dart';
 import '../widgets/search_button.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  bool _includeNearbyOrigins = false;
+  bool _includeNearbyDestinations = false;
+  bool _isFclChecked = false;
+  bool _isLclChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +80,14 @@ class SearchScreen extends StatelessWidget {
                                 children: [
                                   const SizedBox(width: 8),
                                   GestureDetector(
-                                    child:
-                                        const CustomCheckbox(isChecked: true),
-                                    onTap: () {},
+                                    child: CustomCheckbox(
+                                        isChecked: _includeNearbyOrigins),
+                                    onTap: () {
+                                      setState(() {
+                                        _includeNearbyOrigins =
+                                            !_includeNearbyOrigins;
+                                      });
+                                    },
                                   ),
                                   const SizedBox(width: 8),
                                   const Text(
@@ -92,13 +108,22 @@ class SearchScreen extends StatelessWidget {
                                 title: "Destination",
                               ),
                               const SizedBox(height: 8),
-                              const Row(
+                              Row(
                                 children: [
-                                  SizedBox(width: 8),
-                                  CustomCheckbox(isChecked: false),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    "Include nearby origin ports",
+                                  const SizedBox(width: 8),
+                                  GestureDetector(
+                                    child: CustomCheckbox(
+                                        isChecked: _includeNearbyDestinations),
+                                    onTap: () {
+                                      setState(() {
+                                        _includeNearbyDestinations =
+                                            !_includeNearbyDestinations;
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(width: 8),
+                                  const Text(
+                                    "Include nearby destination ports",
                                     style: TextStyle(fontSize: 11),
                                   ),
                                 ],
@@ -121,7 +146,7 @@ class SearchScreen extends StatelessWidget {
                         ),
                         SizedBox(width: 16),
                         Expanded(
-                            child: CustomTextField(
+                            child: CutOffDateField(
                           title: "Cut Off Date",
                           assetPath: "assets/icons/calendar-2.png",
                           isPrefix: false,
@@ -136,18 +161,30 @@ class SearchScreen extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
-                    const Row(
+                    Row(
                       children: [
-                        CustomCheckbox(isChecked: true),
-                        SizedBox(width: 8),
-                        Text(
+                        GestureDetector(
+                            child: CustomCheckbox(isChecked: _isFclChecked),
+                            onTap: () {
+                              setState(() {
+                                _isFclChecked = !_isFclChecked;
+                              });
+                            }),
+                        const SizedBox(width: 8),
+                        const Text(
                           "FCL",
                           style: TextStyle(fontSize: 11),
                         ),
-                        SizedBox(width: 16),
-                        CustomCheckbox(isChecked: false),
-                        SizedBox(width: 8),
-                        Text(
+                        const SizedBox(width: 16),
+                        GestureDetector(
+                            child: CustomCheckbox(isChecked: _isLclChecked),
+                            onTap: () {
+                              setState(() {
+                                _isLclChecked = !_isLclChecked;
+                              });
+                            }),
+                        const SizedBox(width: 8),
+                        const Text(
                           "LCL",
                           style: TextStyle(fontSize: 11),
                         ),
