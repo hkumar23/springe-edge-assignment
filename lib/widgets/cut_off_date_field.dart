@@ -22,11 +22,27 @@ class _CutOffDateFieldState extends State<CutOffDateField> {
 
   Future<void> _pickDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
+        context: context,
+        initialDate: _selectedDate ?? DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100),
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: const ColorScheme.light(
+                primary: Color.fromRGBO(230, 235, 255, 1),
+                onPrimary: Color.fromRGBO(1, 57, 255, 1),
+                onSurface: Colors.black,
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  foregroundColor: const Color.fromRGBO(1, 57, 255, 1),
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        });
     if (pickedDate != null && pickedDate != _selectedDate) {
       setState(() {
         _textEditingController.text =
