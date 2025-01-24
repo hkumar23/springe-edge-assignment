@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:internshala_spring_edge/app_methods.dart';
-import 'package:internshala_spring_edge/widgets/custom_auto_complete_field.dart';
-import 'package:internshala_spring_edge/widgets/custom_checkbox.dart';
-import 'package:internshala_spring_edge/widgets/custom_text_field.dart';
-import 'package:internshala_spring_edge/widgets/cut_off_date_field.dart';
 
+import '../app_methods.dart';
+import '../widgets/custom_auto_complete_field.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/cut_off_date_field.dart';
+import '../widgets/fcl_checkbox.dart';
+import '../widgets/nearby_origins_checkbox.dart';
 import '../widgets/custom_dropdown.dart';
 import '../widgets/history_button.dart';
+import '../widgets/lcl_checkbox.dart';
+import '../widgets/nearby_destinations_checkbox.dart';
 import '../widgets/search_button.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -17,11 +20,6 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  bool _includeNearbyOrigins = false;
-  bool _includeNearbyDestinations = false;
-  bool _isFclChecked = false;
-  bool _isLclChecked = false;
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -76,26 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 title: "Origin",
                               ),
                               const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  const SizedBox(width: 8),
-                                  GestureDetector(
-                                    child: CustomCheckbox(
-                                        isChecked: _includeNearbyOrigins),
-                                    onTap: () {
-                                      setState(() {
-                                        _includeNearbyOrigins =
-                                            !_includeNearbyOrigins;
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(width: 8),
-                                  const Text(
-                                    "Include nearby origin ports",
-                                    style: TextStyle(fontSize: 11),
-                                  ),
-                                ],
-                              )
+                              const NearByOriginsCheckbox()
                             ],
                           ),
                         ),
@@ -108,26 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 title: "Destination",
                               ),
                               const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  const SizedBox(width: 8),
-                                  GestureDetector(
-                                    child: CustomCheckbox(
-                                        isChecked: _includeNearbyDestinations),
-                                    onTap: () {
-                                      setState(() {
-                                        _includeNearbyDestinations =
-                                            !_includeNearbyDestinations;
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(width: 8),
-                                  const Text(
-                                    "Include nearby destination ports",
-                                    style: TextStyle(fontSize: 11),
-                                  ),
-                                ],
-                              )
+                              const NearByDestinationsCheckBox()
                             ],
                           ),
                         )
@@ -161,33 +121,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
-                    Row(
+                    const Row(
                       children: [
-                        GestureDetector(
-                            child: CustomCheckbox(isChecked: _isFclChecked),
-                            onTap: () {
-                              setState(() {
-                                _isFclChecked = !_isFclChecked;
-                              });
-                            }),
-                        const SizedBox(width: 8),
-                        const Text(
-                          "FCL",
-                          style: TextStyle(fontSize: 11),
-                        ),
-                        const SizedBox(width: 16),
-                        GestureDetector(
-                            child: CustomCheckbox(isChecked: _isLclChecked),
-                            onTap: () {
-                              setState(() {
-                                _isLclChecked = !_isLclChecked;
-                              });
-                            }),
-                        const SizedBox(width: 8),
-                        const Text(
-                          "LCL",
-                          style: TextStyle(fontSize: 11),
-                        ),
+                        FclCheckbox(),
+                        SizedBox(width: 16),
+                        LclCheckbox(),
                       ],
                     ),
                     const SizedBox(height: 16),
@@ -242,7 +180,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 14),
-                      // padding: const EdgeInsets.all(16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

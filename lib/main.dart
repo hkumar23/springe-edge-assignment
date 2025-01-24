@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:internshala_spring_edge/screens/search_screen.dart';
+
+import 'screens/search_screen.dart';
 
 void main() {
   runApp(const MyApp());

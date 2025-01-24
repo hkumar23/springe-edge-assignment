@@ -24,8 +24,8 @@ class _CutOffDateFieldState extends State<CutOffDateField> {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: _selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2000), // Earliest date to choose
-      lastDate: DateTime(2100), // Latest date to choose
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
     );
     if (pickedDate != null && pickedDate != _selectedDate) {
       setState(() {

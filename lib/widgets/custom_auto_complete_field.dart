@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:internshala_spring_edge/models/university.model.dart';
+
+import '../models/university.model.dart';
 
 class CustomAutoCompleteField extends StatelessWidget {
   const CustomAutoCompleteField({
